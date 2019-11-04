@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.slkj.monitoring.dao.PointDao">
+
+    <select id="getPointList" resultType="com.slkj.monitoring.bean.PointDo">
+        select * from tab_point inner join tab_role on tab_point.pid = tab_role.pid where tab_role.uid = #{uid} limit #{offset}, #{limit}
+    </select>
+
+    <select id="getPointNum" resultType="int">
+        select count(*) from tab_point inner join tab_role on tab_point.pid = tab_role.pid where tab_role.uid = #{uid}
+    </select>
+</mapper>

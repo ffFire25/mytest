@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+    <meta name="author" content="Vincent Garreau" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 引入样式文件和动态控制 -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" media="screen" href="css/login.css">
+    <title>后台管理界面</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid" style="padding-right: auto">
+        <div class="navbar-left">
+            <!--<img src="<%=path %>/images/a.jpg" height="100%" />-->
+            <h1 style="color: #ffc107">公司logo</h1>
+
+        </div>
+    </div>
+</nav>
+<!-- particles.js container -->
+<div id="particles-js" style="display: flex;align-items: center;justify-content: center">
+</div>
+<div class="login-page">
+    <form id="signupForm">
+    <div class="login-content">
+        <div class="login-tit" style="justify-content: center">首链科技欢迎您！</div>
+        <div class="login-input">
+            <input type="text" placeholder="用户名">
+        </div>
+        <div class="login-input">
+            <input type="password" placeholder="密码">
+        </div>
+        <div class="login-btn">
+            <div class="login-btn-left">
+                <button type="submit" id ="login" onclick="login">登录</button>
+            </div>
+            <div style="margin-left: 190px">
+                <button style="right: auto" onclick="changeWd">修改密码</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+
+<!-- scripts -->
+<script src="js/particles.js"></script>
+<script>
+
+    function login() {
+        $.ajax({
+            type: "POST",
+            url: "/login",
+            data: $('#signupForm').serialize(),
+            success: function (r) {
+                if (r.code == 0) {
+                    var index = layer.load(1, {
+                        shade: [0.1,'#fff'] //0.1透明度的白色背景
+                    });
+                    parent.location.href = '/index';
+                } else {
+                    layer.msg(r.msg);
+                }
+            },
+        });
+    }
+</script>
+</body>
+</html>
